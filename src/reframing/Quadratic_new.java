@@ -13,6 +13,7 @@ public class Quadratic_new {
     Instances train, test;
     Classifier model;
     int num;
+    Utility ut = new Utility();
     
     public double[] findOptimumAlpha( double p, double tmpMeanAbsoluteError, int idx ) throws Exception
     {
@@ -38,6 +39,7 @@ public class Quadratic_new {
         return results;
         
     }
+    
     
     public double[] findOptimumBeta( double p, double alpha, double tmpMeanAbsoluteError, int idx ) throws Exception
     {
@@ -92,11 +94,11 @@ public class Quadratic_new {
     public void selectAlphaBetaGama(int idx) throws Exception {
         double p = 0.1;
         double alpha = 1.0, beta =  1.0, gamma = 0;
-
+        
         Evaluation eval = new Evaluation(train);
         eval.evaluateModel(model, test);
         double meanAbsoluteError = eval.meanAbsoluteError();
-        
+        double accuracy = ut.cal_accuracy(eval.correct(), eval.incorrect());
         // decrease alpha for geting better result
         double[] negAlphaResult = findOptimumAlpha(-0.1, meanAbsoluteError, idx);
 
